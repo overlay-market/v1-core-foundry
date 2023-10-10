@@ -8,3 +8,8 @@ reports/
 *.sw[op]
 .DS_Store
 *.bk
+
+# Foundry files
+cache
+out-via-ir
+out
