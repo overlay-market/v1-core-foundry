@@ -38,5 +38,7 @@ contract MarketConf is Test {
 
         token.transfer(alice, (SUPPLY / 2) * 10 * token.decimals());
         token.transfer(bob, (SUPPLY / 2) * 10 * token.decimals());
+
+        //def ovl(create_token):
     }
 }
