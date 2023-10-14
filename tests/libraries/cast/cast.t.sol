@@ -5,7 +5,9 @@ import {Test} from "forge-std/Test.sol";
 import {console} from "forge-std/console.sol";
 import {CastMock} from "contracts/mocks/CastMock.sol";
 
-contract LibrariesConf is Test {
+contract CastTest is Test {
+
+    //conftest
     address gov = makeAddr("gov");
     address alice = makeAddr("alice");
     address bob = makeAddr("bob");
@@ -52,6 +54,13 @@ contract LibrariesConf is Test {
     function testToInt192BoundedWhenLessThanMin() public {
         int256 value = -2**250;
         int256 expect = -2**191;
+        int256 actual = cast.toInt192Bounded(value);
+        assertEq(expect, actual);
+    }
+
+    function testToInt192BoundedWhenGreaterThanMax() public {
+        int256 value = 2**250 - 1;
+        int256 expect = 2**191 - 1;
         int256 actual = cast.toInt192Bounded(value);
         assertEq(expect, actual);
     }
