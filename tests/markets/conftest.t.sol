@@ -65,10 +65,10 @@ contract MarketConf is Test {
 
         // mint the token then renounce minter role
         ovl.grantRole(MINTER_ROLE, gov);
-        ovl.mint(gov, SUPPLY * 10 * ovl.decimals());
+        ovl.mint(gov, SUPPLY * 10 ** ovl.decimals());
         ovl.renounceRole(MINTER_ROLE, gov);
-        ovl.transfer(alice, (SUPPLY / 2) * 10 * ovl.decimals());
-        ovl.transfer(bob, (SUPPLY / 2) * 10 * ovl.decimals());
+        ovl.transfer(alice, (SUPPLY / 2) * 10 ** ovl.decimals());
+        ovl.transfer(bob, (SUPPLY / 2) * 10 ** ovl.decimals());
 
         fake_feed = new OverlayV1FeedMock(600, 1800, 1e18, 2000000e18);
         // TODO: change params to (600, 3600, 300, 14)
