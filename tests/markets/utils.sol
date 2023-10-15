@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
+import {FixedPointMathLib} from "solady/src/utils/FixedPointMathLib.sol";
+
 contract Utils {
+    using FixedPointMathLib for uint256;
+
     enum RiskParameter {
         K, // 0
         LMBDA, // 1
@@ -29,8 +33,8 @@ contract Utils {
         Returns position attributes
         */
         // MIGRATION: Verify that return values are right.
-        uint256 collateral = notional / leverage;
-        uint256 trade_fee = (notional * trading_fee_rate) / 1e18;
+        uint256 collateral = notional.divWad(leverage);
+        uint256 trade_fee = notional * trading_fee_rate;
         uint256 debt = notional - collateral;
 
         return (collateral, notional, debt, trade_fee);

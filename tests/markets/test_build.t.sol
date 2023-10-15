@@ -9,11 +9,11 @@ contract BuildTest is MarketConf, Utils {
         super.setUp();
     }
 
-    function fuzzTest_build_creates_position(uint256 _notional, uint256 _leverage, bool _isLong) public {
+    function test_build_creates_position(uint256 _notional, uint256 _leverage, bool _isLong) public {
         _notional = bound(_notional, 0.001e18, 80000e18);
         _leverage = bound(_leverage, 1e18, 5e18);
         // NOTE: current position id is zero given isolation fixture
-        uint256 expect_pos_id = 0;
+        uint256 expect_pos_id;
 
         // calculate expected pos info data
         uint256 idx_trade = uint256(RiskParameter.TRADING_FEE_RATE);
