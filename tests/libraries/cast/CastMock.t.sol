@@ -5,13 +5,13 @@ import {Test} from "forge-std/Test.sol";
 import {console} from "forge-std/console.sol";
 import {CastMock} from "contracts/mocks/CastMock.sol";
 
-contract CastTest is Test {
+contract CastMockTest is Test {
 
-    //conftest
-    address gov = makeAddr("gov");
+    ///////////////////
+    /// conftest.py ///
+    ///////////////////
+
     address alice = makeAddr("alice");
-    address bob = makeAddr("bob");
-    address rando = makeAddr("rando");
 
     CastMock public cast;
 
@@ -20,7 +20,9 @@ contract CastTest is Test {
         cast = new CastMock();
     }
 
-    // test_views 
+    ///////////////////////
+    //// test_views.py ////
+    ///////////////////////
 
     function testToUint32Bounded() public {
         uint256 value = 1000;

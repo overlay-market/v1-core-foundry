@@ -7,11 +7,11 @@ import {FixedCastMock} from "contracts/mocks/FixedCastMock.sol";
 
 contract FixedCastTest is Test {
 
-     //conftest
-    address gov = makeAddr("gov");
+    /////////////////////
+    //// conftest.py ////
+    /////////////////////
+
     address alice = makeAddr("alice");
-    address bob = makeAddr("bob");
-    address rando = makeAddr("rando");
 
     FixedCastMock public fixedCast;
 
@@ -20,6 +20,9 @@ contract FixedCastTest is Test {
         fixedCast = new FixedCastMock();
     }
 
+    ///////////////////////
+    //// test_views.py ////
+    ///////////////////////
     function testToUint256Fixed(uint16 _value) public {
         // convert 4 places to 18 places
         uint256 expect = uint256(_value) * uint256(1e14);
