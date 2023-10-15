@@ -47,7 +47,7 @@ contract MarketConf is Test {
     OverlayV1Market mock_market;
     OverlayV1Market market;
 
-    function setUp() public {
+    function setUp() public virtual {
         vm.createSelectFork(vm.envString("MAINNET_RPC"), 18_330_516);
 
         vm.label(DAI, "DAI");
@@ -149,6 +149,4 @@ contract MarketConf is Test {
 
         vm.stopPrank();
     }
-
-    function testDummy() public {}
 }
