@@ -52,11 +52,10 @@ contract CastMockTest is Test {
         assertEq(iExpect, iActual);
     }
     
-    // This test function gives assertion failed
     function testToInt192BoundedWhenLessThanMin() public {
-        int256 value = -2**250;
-        int256 expect = -2**191;
-        int256 actual = cast.toInt192Bounded(value);
+        int256 value = -(2**250);
+        int192 expect = -2**191;
+        int192 actual = cast.toInt192Bounded(value);
         assertEq(expect, actual);
     }
 
