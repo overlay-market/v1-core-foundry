@@ -2,9 +2,18 @@
 pragma solidity 0.8.10;
 
 import {FixedPointMathLib} from "solady/src/utils/FixedPointMathLib.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+import {Oracle} from "contracts/libraries/Oracle.sol";
+import {Position} from "contracts/libraries/Position.sol";
 
 contract Utils {
     using FixedPointMathLib for uint256;
+
+    struct PositionInfo {
+        uint256 collateral;
+        uint256 debt;
+        uint256 trade_fee;
+    }
 
     enum RiskParameter {
         K, // 0
@@ -25,9 +34,9 @@ contract Utils {
     }
 
     function calculate_position_info(uint256 notional, uint256 leverage, uint256 trading_fee_rate)
-        public
+        internal
         pure
-        returns (uint256, uint256, uint256, uint256)
+        returns (PositionInfo memory)
     {
         /*
         Returns position attributes
@@ -37,6 +46,27 @@ contract Utils {
         uint256 trade_fee = notional * trading_fee_rate;
         uint256 debt = notional - collateral;
 
-        return (collateral, notional, debt, trade_fee);
+        return PositionInfo(collateral, debt, trade_fee);
+    }
+
+    function mid_from_feed(Oracle.Data memory data) internal pure returns (uint256) {
+        /*
+        Returns mid price from feed
+        */
+        // MIGRATION: Verify that return values are right.
+        uint256 price_micro = data.priceOverMicroWindow;
+        uint256 price_macro = data.priceOverMacroWindow;
+        uint256 ask = Math.max(price_micro, price_macro);
+        uint256 bid = Math.min(price_micro, price_macro);
+        return (ask + bid) / 2;
+    }
+
+    function get_position_key(address _owner, uint256 _pos_id) internal pure returns (bytes32) {
+        /*
+        Returns the position key to retrieve an individual position
+        from positions mapping
+        */
+        // MIGRATION: Verify that return values are right.
+        return keccak256(abi.encodePacked(_owner, _pos_id));
     }
 }
