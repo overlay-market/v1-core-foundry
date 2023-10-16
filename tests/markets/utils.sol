@@ -15,6 +15,11 @@ contract Utils {
         uint256 trade_fee;
     }
 
+    struct OIValues {
+        uint256 oi;
+        uint256 oi_shares;
+    }
+
     enum RiskParameter {
         K, // 0
         LMBDA, // 1
