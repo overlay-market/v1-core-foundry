@@ -1,29 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
-import {Test} from "forge-std/Test.sol";
-import {console} from "forge-std/console.sol";
-import {FixedPointMock} from "contracts/mocks/FixedPointMock.sol";
-import {FixedPointMathLib} from "solady/src/utils/FixedPointMathLib.sol";
+import "./FixedPointConf.t.sol";
 
-contract FixedPointMockTest is Test {
+contract FixedPointMockTest is FixedPointConf {
 
-    /////////////////////
-    //// conftest.py ////
-    /////////////////////
-    
-    address gov = makeAddr("gov");
-    address alice = makeAddr("alice");
-    address bob = makeAddr("bob");
-    address rando = makeAddr("rando");
-
-    FixedPointMock public fixedPoint;
-
-    using FixedPointMathLib for uint256;
-
-    function setUp() public {
-        vm.prank(alice);
-        fixedPoint = new FixedPointMock();
+    function setUp() public virtual override {
+        super.setUp();
     }
 
     /////////////////////
