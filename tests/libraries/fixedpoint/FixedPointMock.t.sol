@@ -60,16 +60,17 @@ contract FixedPointMockTest is Test {
         uint256 x = 2**255;
         vm.expectRevert(bytes("FixedPoint: x out of bounds"));
         fixedPoint.expUp(x);
-
-
     }
    
     /*
-    function testExpDown() public {
-        uint256 min_value = 0;
-        uint256 max_value = 40;
-        _x = bound(_x, min_value, max_value);
+    function testExpDown(_x) public {
+        _x = bound(_x, 0, 40);
     } */
 
-
+    function test_exp_down_when_pow_is_zero() public {
+        uint256 x = 0;
+        uint256 expect = 1000000000000000000;
+        uint256 actual = fixedPoint.expDown(x);
+        assertEq(expect, actual);
+    }
 }
