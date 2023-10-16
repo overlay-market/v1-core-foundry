@@ -73,4 +73,11 @@ contract FixedPointMockTest is Test {
         uint256 actual = fixedPoint.expDown(x);
         assertEq(expect, actual);
     }
+
+    function test_exp_down_reverts_when_x_greater_than_int256() public {
+        // check reverts when greater than int256 max
+        uint256 x = 2**255;
+        vm.expectRevert(bytes("FixedPoint: x out of bounds"));
+        fixedPoint.expDown(x);
+    }
 }
