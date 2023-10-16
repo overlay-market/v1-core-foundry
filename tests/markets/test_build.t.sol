@@ -48,10 +48,10 @@ contract BuildTest is MarketConf, Utils {
         // check position attributes
         assertEq(realPosition.isLong, _isLong);
         assertEq(realPosition.liquidated, false);
-        assertApprox(realPosition.notionalInitial, _notional, 10);
-        assertApprox(realPosition.oiShares, oi, 10);
-        assertApprox(realPosition.debtInitial, positionInfo.debt, 10);
-        assertApprox(realPosition.fractionRemaining, 1e4, 10);
+        assertApproxEqAbs(realPosition.notionalInitial, _notional, 10);
+        assertApproxEqAbs(realPosition.oiShares, oi, 10);
+        assertApproxEqAbs(realPosition.debtInitial, positionInfo.debt, 10);
+        assertApproxEqAbs(realPosition.fractionRemaining, 1e4, 10);
     }
 
     function test_build_adds_oi(uint256 _notional, uint256 _leverage, bool _isLong) public {
@@ -85,8 +85,8 @@ contract BuildTest is MarketConf, Utils {
         (uint256 actual_oi, uint256 actual_oi_shares) = marketOI(_isLong);
 
         // NOTE: rel tol of 1e-4 given tick has precision to 1bps
-        assertApprox(actual_oi, expect_oi, 2);
-        assertApprox(actual_oi_shares, expect_oi_shares, 2);
+        assertApproxEqAbs(actual_oi, expect_oi, 2);
+        assertApproxEqAbs(actual_oi_shares, expect_oi_shares, 2);
 
         // check oi shares given to position matches oi shares added to aggregates
         Position.Info memory realPosition = expected_position(alice, actual_pos_id);
@@ -120,8 +120,8 @@ contract BuildTest is MarketConf, Utils {
         (actual_oi, actual_oi_shares) = marketOI(_isLong);
 
         // NOTE: rel tol of 1e-4 given tick has precision to 1bps
-        assertApprox(actual_oi, expect_oi, 2);
-        assertApprox(actual_oi_shares, expect_oi_shares, 2);
+        assertApproxEqAbs(actual_oi, expect_oi, 2);
+        assertApproxEqAbs(actual_oi_shares, expect_oi_shares, 2);
     }
 
     //Internal functions to avoid error "Stack too deep".
@@ -180,13 +180,5 @@ contract BuildTest is MarketConf, Utils {
             actual_oi_shares,
             actual_fraction_remaining
         );
-    }
-
-    function assertApprox(uint256 actual, uint256 expected, uint256 precision) internal {
-        if (actual > expected) {
-            assertLe(actual - expected, precision);
-        } else {
-            assertLe(expected - actual, precision);
-        }
     }
 }
