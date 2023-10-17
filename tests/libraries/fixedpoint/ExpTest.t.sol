@@ -3,7 +3,8 @@ pragma solidity 0.8.10;
 
 import "./FixedPointConf.t.sol";
 
-contract FixedPointMockTest is FixedPointConf {
+contract ExpTest is FixedPointConf {
+    
 
     function setUp() public virtual override {
         super.setUp();
@@ -13,19 +14,18 @@ contract FixedPointMockTest is FixedPointConf {
     //// test_exp.py ////
     /////////////////////
 
-    // I don't know how to find an alternative in foundry for:
-    //  "from math import exp" and from pytest import approx
 
-    /* function testExpUp(uint256 _x) public {
+    /* function test_exp_up(uint256 _x) public {
 
         _x = bound(_x, 0, 40);
 
         uint256 x_fixed = _x * 1e18;
 
-        uint256 expect = fixedPoint.expWad(_x); //???????
+        uint256 expect = uint256(FixedPointMathLib.expWad(int256(_x))); //???????
         uint256 actual = fixedPoint.expUp(x_fixed);
+        
 
-        //assertEq(expect, approx(actual));
+        assertApproxEqAbs(expect, actual, //delta );
         // lesser than or equal to
         assertLe(expect, actual); // check round up error added
 

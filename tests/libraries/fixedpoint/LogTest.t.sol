@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.10;
+
+import "./FixedPointConf.t.sol";
+
+contract LogTest is FixedPointConf {
+
+    function setUp() public virtual override {
+        super.setUp();
+    }
+
+
+    // test_log_up ?
+
+
+
+    function test_log_up_reverts_a_is_zero() public {
+        uint256 a = 0;
+        uint256 b = 1;
+
+        vm.expectRevert(bytes("FixedPoint: a out of bounds"));
+        fixedPoint.logUp(a,b);
+    }
+
+
+}
