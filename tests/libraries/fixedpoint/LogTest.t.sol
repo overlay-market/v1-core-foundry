@@ -22,5 +22,13 @@ contract LogTest is FixedPointConf {
         fixedPoint.logUp(a,b);
     }
 
+    function test_log_up_reverts_a_gt_max() public {
+        uint256 a = 2**255;
+        uint256 b = 1;
+
+        vm.expectRevert(bytes("FixedPoint: a out of bounds"));
+        fixedPoint.logUp(a,b);
+    }
+
 
 }
