@@ -67,4 +67,12 @@ contract LogTest is FixedPointConf {
         fixedPoint.logDown(a, b);
     }
 
+    function test_log_down_reverts_b_is_zero() public {
+        uint256 a = 1;
+        uint256 b = 0;
+
+        vm.expectRevert(bytes("FixedPoint: b out of bounds"));
+        fixedPoint.logDown(a, b);
+    }
+
 }
